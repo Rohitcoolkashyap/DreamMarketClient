@@ -7,6 +7,9 @@ const {
   PRODUCT_PAGE_REQUEST,
   PRODUCT_PAGE_SUCCESS,
   PRODUCT_PAGE_FAIL,
+  PRODUCT_CREATE_REQUEST,
+  PRODUCT_SUCCESS_REQUEST,
+  PRODUCT_FAIL_REQUEST,
 } = require("../constants/productConstants");
 
 const listProducts = () => async (dispatch) => {
@@ -19,6 +22,23 @@ const listProducts = () => async (dispatch) => {
   }
 };
 
+const createProduct = (product) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: PRODUCT_CREATE_REQUEST, payload: product });
+    const {
+      userSignin: { userInfo },
+    } = getState();
+
+    const { data } = await axios.post(`${baseUrl}/api/product`, product, {
+      headers: {
+        Authorization: "rohit1" + userInfo.token,
+      },
+    });
+    dispatch({ type: PRODUCT_SUCCESS_REQUEST, payload: data });
+  } catch (error) {
+    dispatch({ type: PRODUCT_FAIL_REQUEST, payload: error.message });
+  }
+};
 const detailProduct = (productId) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_PAGE_REQUEST, payload: productId });
@@ -28,4 +48,5 @@ const detailProduct = (productId) => async (dispatch) => {
     dispatch({ type: PRODUCT_PAGE_FAIL, payload: error.message });
   }
 };
-export { listProducts, detailProduct };
+
+export { listProducts, detailProduct, createProduct };

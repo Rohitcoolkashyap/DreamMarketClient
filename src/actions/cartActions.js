@@ -30,15 +30,17 @@ const addToCart = (productId, qty) => async (dispatch, getState) => {
   }
 };
 
-const removeFromCart = (productId) => async (dispatch, getState) => {
+const removeFromCart = (productId) => (dispatch, getState) => {
   try {
     dispatch({ type: CART_REMOVE_ITEM, payload: productId });
     const {
       cart: { cartItems },
     } = getState();
-    Cookie.set("cartItems", JSON.stringify(cartItems));
-  } catch (error) {
-  }
+
+    if (cartItems.length !== 0)
+      Cookie.set("cartItems", JSON.stringify(cartItems));
+    else Cookie.set("cartItems", null);
+  } catch (error) {}
 };
 
 export { addToCart, removeFromCart };

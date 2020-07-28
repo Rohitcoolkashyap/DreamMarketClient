@@ -20,17 +20,17 @@ export default function ProductPage(props) {
   ) : error ? (
     <div>{error}</div>
   ) : (
-    <div className="product_page">
-      <div key={product._id} className="product_container">
+    <div className="product_page2">
+      <div className="product_container2">
         <img src={product.image} alt="" />
       </div>
-      <div className="product_info">
-        <h3>{product.name}</h3>
-        <p>price :{product.price}</p>
+      <div className="product_info2">
+        <h3>product name : {product.name}</h3>
+        <p>price (inr) : {product.price}</p>
         <p>description : {product.description}</p>
       </div>
-      <ul className="cart_box">
-        <li>price : {product.price}</li>
+      <ul className="cart_box2">
+        <li>price (inr) : {product.price}</li>
         <li>
           state : {product.countInStock !== 0 ? "in stock" : "out of stock"}
         </li>
@@ -38,7 +38,7 @@ export default function ProductPage(props) {
           qty:
           <select
             disabled={product.countInStock === 0}
-            className="qty"
+            className="qty2"
             value={qty}
             onChange={(e) => {
               setQty(e.target.value);

@@ -26,7 +26,9 @@ export default function CartPage(props) {
   ) : (
     <div className="cart_product">
       {cartItems.length === 0 ? (
-        <div>cart is empty</div>
+        <div className="cart_emp">
+          <h1>cart is empty </h1>
+        </div>
       ) : (
         cartItems.map((item) => (
           <div className="cart" key={item.productId}>
@@ -53,7 +55,10 @@ export default function CartPage(props) {
                   </option>
                 ))}
               </select>
-              <button onClick={() => removeFromCartHandler(item.productId)}>
+              <button
+                className="del-but"
+                onClick={() => removeFromCartHandler(item.productId)}
+              >
                 delete
               </button>
             </div>
